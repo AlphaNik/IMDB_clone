@@ -1,23 +1,19 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-
-
-from user_app.api.serializers import RegistrationSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from user_app import models
+from user_app.api.serializers import RegistrationSerializer
 
 
 @api_view(['POST'])
 def register_view(request):
-    # if not request.data.get('password'):
-    #     return Response({'error':'password not sent'})
     if request.method == 'POST':
         serializer = RegistrationSerializer(data=request.data)
         
         data = {}
         if serializer.is_valid():
-            user_obj = serializer.save()  #returned obj from serializer's save method
+            user_obj = serializer.save()
             data['username'] = user_obj.username
             data['email'] = user_obj.email
             data['response'] = 'Registration successful'

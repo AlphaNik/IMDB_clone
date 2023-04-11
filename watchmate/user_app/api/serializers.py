@@ -26,14 +26,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         queryset = User.objects.filter(email=email)
         if queryset.exists():
             raise ValidationError('Email already exists')
-        
-        # user = User(username=self.validated_data['username'],
-        #             email=self.validated_data['email'],
-        #             password=self.validated_data['password'])
-        # user.save() 
-        #this way user will be saved but without password,
-        #since django doesn't save raw password
-        #or 
 
         user = User(username=self.validated_data['username'],
                     email=self.validated_data['email'])
